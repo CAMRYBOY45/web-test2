@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffd9fa, #e6efff);
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .login-container input {
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #808080;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background: #5D8682;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-container button:hover {
+            background: #b4b4b4;
+        }
+
+        .login-container p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-container p a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .login-container p a:hover {
+            text-decoration: underline;
+        }
+
+        .notification {
+            text-align: center;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+    <script>
+        function showNotification(event) {
+            event.preventDefault(); // Prevent form submission for demonstration
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+
+            // Redirect to index.html after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <div id="notification" class="notification" style="display: none;">Anda telah terdaftar!</div>
+        <form id="loginForm">
+            <label>Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your Email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="index.html">Sign up</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Simulasi validasi login sederhana
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Jika login valid (contoh sederhana)
+            if(email && password) {
+                // Simpan status login di localStorage/sessionStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Redirect ke index.html
+                window.location.href = 'index.html';
+            } else {
+                // Tampilkan notifikasi error jika perlu
+                document.getElementById('notification').style.display = 'block';
+                document.getElementById('notification').textContent = 'Email atau password salah!';
+                document.getElementById('notification').style.color = 'red';
+            }
+        });
+
+        // Cek jika ada notifikasi pendaftaran berhasil (contoh)
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('registered')) {
+            document.getElementById('notification').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
